@@ -1,0 +1,22 @@
+{
+    "name": "web2app",
+    "description": "",
+    "version": "0.1.13",
+    "author": {
+        "name" : "",
+        "email" : "",
+        "url" : ""
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-concat": "*",
+        "grunt-contrib-jshint": "*",
+        "grunt-contrib-uglify": "*",
+        "grunt-jsversion": "*"
+    },
+    "main": "src/js/web2app.js",
+    "engines": { "node": ">= 0.8" },
+    "copyright": "Html5 Tech. Team in Daum Communications Corp."
+}

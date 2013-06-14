@@ -1,3 +1,3 @@
 # Web2App Library
 
-run application from web browser
+run application in a web browser

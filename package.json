@@ -1,20 +1,30 @@
 {
     "name": "web2app",
-    "description": "",
+    "description": "run application in a web browser",
     "version": "0.1.13",
     "author": {
-        "name" : "",
-        "email" : "",
-        "url" : ""
+        "name" : "Kim Du-hyeong",
+        "email" : "dduskim@gmail.com",
+        "url" : "https://github.com/daumcorp/web2app"
     },
     "dependencies": {
     },
     "devDependencies": {
         "grunt": "~0.4.1",
+        "grunt-cli": "~0.1.9",
         "grunt-contrib-concat": "*",
         "grunt-contrib-jshint": "*",
         "grunt-contrib-uglify": "*",
+        "grunt-contrib-jasmine": "*",
         "grunt-jsversion": "*"
+    },
+    "keywords" : [
+        "web2app",
+        "webtoapp"
+    ],
+    "repository": {
+        "url": "git@github.com:daumcorp/web2app.git",
+        "type": "git"
     },
     "main": "src/js/web2app.js",
     "engines": { "node": ">= 0.8" },

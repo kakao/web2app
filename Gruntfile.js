@@ -11,15 +11,29 @@ module.exports = function(grunt) {
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.copyright %>;' + 
                 ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
         },
+        remotefile : {
+            dist: {
+                url:'http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.11.min.js',
+                dest:'dependency/userAgent.js'    
+            }
+        },
         concat : {
             options: {
                 separator: "\n\n"
+            },
+            forTest : {
+                src : [
+                    '<banner:meta.banner>',
+                    '<%= remotefile.dist.dest%>',
+                    'src/js/*.js'
+                ],
+                dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.forTest.js'
             },
             dist : {
                 src : [
                     '<banner:meta.banner>',
                     'src/js/*.js'
-                    ],
+                ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
             }
         },
@@ -41,20 +55,32 @@ module.exports = function(grunt) {
         },
         jshint : {
             options : {
-                curly : true,
-                eqeqeq : true,
-                immed : false,
-                latedef : true,
-                newcap : true,
-                noarg : true,
-                sub : true,
-                undef : true,
-                boss : true,
-                eqnull : true,
-                browser : true
+                curly: true,
+                eqeqeq: true,
+                eqnull: true,
+                browser: true,
+                loopfunc: true,
+                globals: {
+                    node: true,
+                    exports: true,
+                    require: true,
+                    describe: true,
+                    it: true,
+                    beforeEach: true,
+                    before: true,
+                    expect: true
+                }
             },
-            globals : {},
-            uses_defaults : [ 'Gruntfile.js', 'src/js/*.js', 'src/test-js/*.js' ]
+            uses_defaults : [ 'Gruntfile.js', 'src/js/*.js', 'src/spec/*.js' ]
+        },
+        jasmine: {
+            dist: {
+                src: '<%= concat.forTest.dest %>',
+                options: {
+                    specs: ['spec/web2appUaList', 'spec/web2appSpec.js'],
+                    outfile: 'web2appSpec.html'                    
+                }
+            }
         }
     });
 
@@ -62,9 +88,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-jsversion');
+    grunt.loadNpmTasks('grunt-remotefile');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'concat', 'jsversion', 'uglify']);
+    grunt.registerTask('test', ['jshint', 'concat', 'jasmine']);
+    grunt.registerTask('default', ['remotefile', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
 
 };

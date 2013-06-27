@@ -21,13 +21,15 @@
             
             willInvokeApp();
             
-            if (os.android) {
-                web2app_android(urlScheme);
-            } else if (os.ios && context.storeURL) {
-                web2app_iOS(urlScheme, context.storeURL, onAppMissing);
-            } else {
-                onUnsupportedEnvironment();
-            }
+            setTimeout(function () {
+                if (os.android) {
+                    web2app_android(urlScheme);
+                } else if (os.ios && context.storeURL) {
+                    web2app_iOS(urlScheme, context.storeURL, onAppMissing);
+                } else {
+                    onUnsupportedEnvironment();
+                }
+            }, 100);                        
         }
         
         function web2app_android(launchURI) {

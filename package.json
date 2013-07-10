@@ -16,6 +16,7 @@
         "grunt-contrib-jshint": "*",
         "grunt-contrib-uglify": "*",
         "grunt-contrib-jasmine": "*",
+        "grunt-remotefile": "*",
         "grunt-jsversion": "*"
     },
     "keywords" : [
@@ -23,10 +24,21 @@
         "webtoapp"
     ],
     "repository": {
-        "url": "git@github.com:daumcorp/web2app.git",
-        "type": "git"
+        "type": "git",
+        "url": "git@github.com:daumcorp/web2app.git"
     },
     "main": "src/js/web2app.js",
     "engines": { "node": ">= 0.8" },
+    "scripts": {
+        "test": "node build.js",
+        "build": "node build.js",
+        "start": "node server.js"
+    },
+    "licenses": [
+        {
+          "type": "MIT",
+          "url": "https://github.com/daumcorp/web2app/blob/master/LICENSE"
+        }
+    ],
     "copyright": "Html5 Tech. Team in Daum Communications Corp."
 }

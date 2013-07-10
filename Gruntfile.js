@@ -65,6 +65,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jsversion');
 
     // Default task.
+    grunt.registerTask('hint', ['jshint']);
     grunt.registerTask('default', ['jshint', 'concat', 'jsversion', 'uglify']);
 
 };

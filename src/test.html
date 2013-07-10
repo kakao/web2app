@@ -45,20 +45,20 @@
 	            pkgName2 = 'com.kakao.story';
 	        
 	        addEvent(btnEl, 'click', function () {
-                var urlScheme = ua.os.android 
-                        ? // intent-based URI
-                        'intent://sendMessage?message=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') + 
-	                    '#Intent;scheme=' + scheme + ';package=' + pkgName + ';end' 
-	                    : // url scheme
-	                    'myp://sendMessage?message=web2app test' +
+                var urlScheme = 'myp://sendMessage?message=web2app test' +
 	                    '&url=' + encodeURIComponent('http://www.daum.net') +
 	                    '&appID=' + encodeURIComponent(document.domain),
-	                appStoreURL = 'itms-apps://itunes.apple.com/kr/app/id373539016?mt=8';
+	                intentURI = 'intent://sendMessage?message=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') + 
+	                    '#Intent;scheme=' + scheme + ';package=' + pkgName + ';end', 
+	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName :
+	                        'itms-apps://itunes.apple.com/kr/app/id373539016?mt=8';
 
 		        if (ua.platform === 'pc') {
 		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n마이피플이 설치된 스마트폰에서 이용해 주세요.');
 		        } else {
-		            daumtools.web2app(urlScheme, {
+		            daumtools.web2app({
+		                urlScheme : urlScheme,
+		                intentURI : intentURI,
 		                storeURL : appStoreURL,
 		                appName : '마이피플',
 		                onUnsupportedEnvironment: function() {
@@ -72,27 +72,28 @@
 	        });
             
 	        addEvent(btnEl2, 'click', function () {
-                var urlScheme = ua.os.android 
-                        ? // intent-based URI
-                        'intent://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
-                        '&appid=' + encodeURIComponent(document.domain) +
-                        '&appver=1.0&apiver=1.0' +
-	                    '#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end' 
-	                    : // url scheme
-	                    'storylink://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
+                var urlScheme = 'storylink://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
                         '&appid=' + encodeURIComponent(document.domain) +
                         '&appver=1.0&apiver=1.0',
-	                appStoreURL = 'itms-apps://itunes.apple.com/app/id486244601';
+                    intentURI = 'intent://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
+                        '&appid=' + encodeURIComponent(document.domain) +
+                        '&appver=1.0&apiver=1.0' +
+                        '#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
+	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName2 : 
+	                    'itms-apps://itunes.apple.com/app/id486244601';
 
 		        if (ua.platform === 'pc') {
 		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오스토리가 설치된 스마트폰에서 이용해 주세요.');
 		        } else {
-		            daumtools.web2app(urlScheme, {
+		            daumtools.web2app({
+		                urlScheme : urlScheme,
+                        intentURI : intentURI,
                         storeURL : appStoreURL,
-                        appName : '카카오스토리',
-                        onAppMissing: function() {
-                            window.location.href = 'http://www.daum.net';
-                        }
+                        appName : '카카오스토리'
+                        //,
+                        //onAppMissing: function() {
+                        //    window.location.href = 'http://www.daum.net';
+                        //}
                     });
 		        }
 	        });

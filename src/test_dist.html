@@ -20,84 +20,85 @@
         
         <button id="web2appTestBtn2">카카오스토리 web2app 공유하기</button>
          
-        <script type="text/javascript" src="http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.10.min.js"></script>
-        <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U03/cssjs/web2app/web2app-0.1.14.min.js"></script>
+        <script type="text/javascript" src="http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.12.min.js"></script>
+        <script type="text/javascript" src="http://s1.daumcdn.net/svc/original/U03/cssjs/web2app/web2app-0.1.16.min.js"></script>
         <script>
-        (function () {
-            var addEvent = function () {
-                if (document.addEventListener) {
-                    return function (el, type, fn) {
-                        el.addEventListener(type, fn, false);
-                    };
-                } else {
-                    return function (el, type, fn) {
-                        el.attachEvent('on' + type, fn);
-                    };
-                }
-            }();
-            
-            var ua = util.userAgent(),
-                btnEl = document.getElementById('web2appTestBtn'),
-                scheme = 'myp',
-                pkgName = 'net.daum.android.air',
-                btnEl2 = document.getElementById('web2appTestBtn2'),
-                scheme2 = 'storylink',
-                pkgName2 = 'com.kakao.story';
-            
-            addEvent(btnEl, 'click', function () {
-                var urlScheme = ua.os.android 
-                        ? // intent-based URI
-                        'intent://sendMessage?message=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') + 
-                        '#Intent;scheme=' + scheme + ';package=' + pkgName + ';end' 
-                        : // url scheme
-                        'myp://sendMessage?message=web2app test' +
-                        '&url=' + encodeURIComponent('http://www.daum.net') +
-                        '&appID=' + encodeURIComponent(document.domain),
-                    appStoreURL = 'itms-apps://itunes.apple.com/kr/app/id373539016?mt=8';
+	    (function () {
+	        var addEvent = function () {
+	            if (document.addEventListener) {
+	                return function (el, type, fn) {
+	                    el.addEventListener(type, fn, false);
+	                };
+	            } else {
+	                return function (el, type, fn) {
+	                    el.attachEvent('on' + type, fn);
+	                };
+	            }
+	        }();
+	        
+	        var ua = util.userAgent(),
+	            btnEl = document.getElementById('web2appTestBtn'),
+	            scheme = 'myp',
+	            pkgName = 'net.daum.android.air',
+	            btnEl2 = document.getElementById('web2appTestBtn2'),
+	            scheme2 = 'storylink',
+	            pkgName2 = 'com.kakao.story';
+	        
+	        addEvent(btnEl, 'click', function () {
+                var urlScheme = 'myp://sendMessage?message=web2app test' +
+	                    '&url=' + encodeURIComponent('http://www.daum.net') +
+	                    '&appID=' + encodeURIComponent(document.domain),
+	                intentURI = 'intent://sendMessage?message=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') + 
+	                    '#Intent;scheme=' + scheme + ';package=' + pkgName + ';end', 
+	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName :
+	                        'itms-apps://itunes.apple.com/kr/app/id373539016?mt=8';
 
-                if (ua.platform === 'pc') {
-                    alert('모바일 기기에서 이용 가능한 기능입니다.\r\n마이피플이 설치된 스마트폰에서 이용해 주세요.');
-                } else {
-                    daumtools.web2app(urlScheme, {
-                        storeURL : appStoreURL,
-                        appName : '마이피플',
-                        onUnsupportedEnvironment: function() {
-                            console.log('go to web page');
+		        if (ua.platform === 'pc') {
+		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n마이피플이 설치된 스마트폰에서 이용해 주세요.');
+		        } else {
+		            daumtools.web2app({
+		                urlScheme : urlScheme,
+		                intentURI : intentURI,
+		                storeURL : appStoreURL,
+		                appName : '마이피플',
+		                onUnsupportedEnvironment: function() {
+		                    console.log('go to web page'); //example
                         },
                         willInvokeApp: function() {
-                            console.log('send click log');
+                            console.log('send click log'); //example
                         }
-                    });
-                }
-            });
+		            });
+		        }
+	        });
             
-            addEvent(btnEl2, 'click', function () {
-                var urlScheme = ua.os.android 
-                        ? // intent-based URI
-                        'intent://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
-                        '&appid=' + encodeURIComponent(document.domain) +
-                        '&appver=1.0&apiver=1.0' +
-                        '#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end' 
-                        : // url scheme
-                        'storylink://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
+	        addEvent(btnEl2, 'click', function () {
+                var urlScheme = 'storylink://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
                         '&appid=' + encodeURIComponent(document.domain) +
                         '&appver=1.0&apiver=1.0',
-                    appStoreURL = 'itms-apps://itunes.apple.com/app/id486244601';
+                    intentURI = 'intent://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
+                        '&appid=' + encodeURIComponent(document.domain) +
+                        '&appver=1.0&apiver=1.0' +
+                        '#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
+	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName2 : 
+	                    'itms-apps://itunes.apple.com/app/id486244601';
 
-                if (ua.platform === 'pc') {
-                    alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오스토리가 설치된 스마트폰에서 이용해 주세요.');
-                } else {
-                    daumtools.web2app(urlScheme, {
+		        if (ua.platform === 'pc') {
+		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오스토리가 설치된 스마트폰에서 이용해 주세요.');
+		        } else {
+		            daumtools.web2app({
+		                urlScheme : urlScheme,
+                        intentURI : intentURI,
                         storeURL : appStoreURL,
-                        appName : '카카오스토리',
-                        onAppMissing: function() {
-                            window.location.href = 'http://www.daum.net';
-                        }
+                        appName : '카카오스토리'
+                        //,
+                        //onAppMissing: function() {
+                        //    window.location.href = 'http://www.daum.net';
+                        //}
                     });
-                }
-            });
-            
-        })();
+		        }
+	        });
+	        
+	    })();
         </script>
         
     </body>

@@ -28,7 +28,7 @@
             
             setTimeout(function () {
                 if (os.android && context.storeURL) {
-                    if (isIntentNotSupportedBrowser()) {
+                    if (isIntentNotSupportedBrowser() || !!context.useUrlScheme) {
                         web2app_android_scheme(context.urlScheme, context.storeURL, onAppMissing);
                     } else {
                         web2app_android_intent(context.intentURI);

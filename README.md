@@ -1,9 +1,9 @@
 # Web2App Library
 
-run application in a web browser
+Launch an mobile app. from a webpage
 
-~~~~~~~
 
+```javascript
 daumtools.web2app({
 	urlScheme : '',									// iphone : custom scheme
 	intentURI : '',									// android : intent URI
@@ -13,6 +13,5 @@ daumtools.web2app({
 	onAppMissing  : function() {},					// fallback function (default. move to appstore)
 	onUnsupportedEnvironment : function() {}		// fallback function
 });
-
-~~~~~~~
+```
 

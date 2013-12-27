@@ -3,4 +3,5 @@
 /backup
 /dependency
 .project
-
+.idea/
+*.iml

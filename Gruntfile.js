@@ -25,14 +25,14 @@ module.exports = function(grunt) {
                 src : [
                     '<banner:meta.banner>',
                     '<%= remotefile.dist.dest%>',
-                    'src/js/*.js'
+                    'lib/*.js'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.forTest.js'
             },
             dist : {
                 src : [
                     '<banner:meta.banner>',
-                    'src/js/*.js'
+                    'lib/*.js'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
             }
@@ -71,14 +71,14 @@ module.exports = function(grunt) {
                     expect: true
                 }
             },
-            uses_defaults : [ 'Gruntfile.js', 'src/js/*.js', 'src/spec/*.js' ]
+            uses_defaults : [ 'Gruntfile.js', 'lib/*.js', 'test/*.js' ]
         },
         jasmine: {
             dist: {
                 src: '<%= concat.forTest.dest %>',
                 options: {
-                    specs: ['spec/web2appUaList', 'spec/web2appSpec.js'],
-                    outfile: 'web2appSpec.html'                    
+                    specs: ['test/web2app_spec.js'],
+                    outfile: 'web2app_spec.html'
                 }
             }
         }

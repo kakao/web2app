@@ -27,7 +27,7 @@
         "type": "git",
         "url": "git@github.com:daumcorp/web2app.git"
     },
-    "main": "src/js/web2app.js",
+    "main": "lib/web2app.js",
     "engines": { "node": ">= 0.8" },
     "scripts": {
         "test": "node build.js",

@@ -1,0 +1,26 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "browser": true,
+    "loopfunc": true,
+    "undef": true,
+    "globals": {
+        "ua_result": false,
+        "daumtools": true,
+        "util": false,
+
+        "describe": false,
+        "it": false,
+        "xit": false,
+        "expect": false,
+        "fail": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "spyOn": false,
+        "waitsFor": false,
+        "runs": false,
+        "jasmine": false,
+        "jQuery": false
+    }
+}

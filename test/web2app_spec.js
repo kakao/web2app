@@ -1,9 +1,5 @@
-/*jshint loopfunc: true
-*/
-/* global describe: true, beforeEach, it
-*/
-
 describe("web2app.js", function () {
+    'use strict';
 
     var daumtools = null;
         

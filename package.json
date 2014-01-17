@@ -1,6 +1,6 @@
 {
     "name": "web2app",
-    "description": "run application in a web browser",
+    "description": "tiny javascript library to launch a mobile app. from a webpage",
     "version": "0.1.17",
     "author": {
         "name" : "Kim Du-hyeong",
@@ -40,5 +40,5 @@
           "url": "https://github.com/daumcorp/web2app/blob/master/LICENSE"
         }
     ],
-    "copyright": "Html5 Tech. Team in Daum Communications Corp."
+    "copyright": "HTML5 Tech. Team in Daum Communications Corp."
 }

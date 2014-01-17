@@ -1,4 +1,4 @@
-/*global module:false*/
+/*jshint node: true */
 
 module.exports = function(grunt) {
 
@@ -55,21 +55,7 @@ module.exports = function(grunt) {
         },
         jshint : {
             options : {
-                curly: true,
-                eqeqeq: true,
-                eqnull: true,
-                browser: true,
-                loopfunc: true,
-                globals: {
-                    node: true,
-                    exports: true,
-                    require: true,
-                    describe: true,
-                    it: true,
-                    beforeEach: true,
-                    before: true,
-                    expect: true
-                }
+                jshintrc: '.jshintrc'
             },
             uses_defaults : [ 'Gruntfile.js', 'lib/*.js', 'test/*.js' ]
         },

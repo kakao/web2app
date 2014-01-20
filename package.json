@@ -19,6 +19,9 @@
         "grunt-remotefile": "*",
         "grunt-jsversion": "*"
     },
+    "dcomboDependencies": {
+        "userAgent" : "1.0.14"
+    },
     "keywords" : [
         "web2app",
         "webtoapp"

@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         },
         remotefile : {
             dist: {
-                url:'http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.11.min.js',
+                url:'http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.14.min.js',
                 dest:'dependency/userAgent.js'    
             }
         },
@@ -21,34 +21,44 @@ module.exports = function(grunt) {
             options: {
                 separator: "\n\n"
             },
-            forTest : {
+            withdependency : {
                 src : [
-                    '<banner:meta.banner>',
                     '<%= remotefile.dist.dest%>',
+                    '<%= meta.banner %>',
                     'lib/*.js'
                 ],
-                dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.forTest.js'
+                dest : 'dist/<%= pkg.name %>-with-dependency-<%= pkg.version %>.js'
             },
-            dist : {
+            nodependency : {
                 src : [
-                    '<banner:meta.banner>',
+                    '<%= meta.banner %>',
                     'lib/*.js'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
             }
         },
         jsversion : {
-            dist : {
+            withdependency : {
                 namespace : 'daumtools',
-                src : '<%= concat.dist.dest %>',
-                dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.v.js'
-            }  
+                src : '<%= concat.withdependency.dest %>',
+                dest : '<%= concat.withdependency.dest %>'
+            },
+            nodependency : {
+                namespace : 'daumtools',
+                src : '<%= concat.nodependency.dest %>',
+                dest : '<%= concat.nodependency.dest %>'
+            }
         },
         uglify : {
-            dist : {
+            withdependency : {
                 src : [
-                    '<%= meta.banner %>', 
-                    '<%= jsversion.dist.dest %>'
+                    '<%= jsversion.withdependency.dest %>'
+                ],
+                dest : 'dist/<%= pkg.name %>-with-dependency-<%= pkg.version %>.min.js'
+            },
+            nodependency : {
+                src : [
+                    '<%= jsversion.nodependency.dest %>'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
             }
@@ -61,7 +71,7 @@ module.exports = function(grunt) {
         },
         jasmine: {
             dist: {
-                src: '<%= concat.forTest.dest %>',
+                src: '<%= concat.withdependency.dest %>',
                 options: {
                     specs: ['test/web2app_spec.js'],
                     outfile: 'web2app_spec.html'

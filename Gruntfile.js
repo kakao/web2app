@@ -21,13 +21,13 @@ module.exports = function(grunt) {
             options: {
                 separator: "\n\n"
             },
-            withdependencies : {
+            standalone : {
                 src : [
                     '<%= remotefile.dist.dest%>',
                     '<%= meta.banner %>',
                     'lib/*.js'
                 ],
-                dest : 'dist/<%= pkg.name %>-with-dependencies-<%= pkg.version %>.js'
+                dest : 'dist/<%= pkg.name %>-standalone-<%= pkg.version %>.js'
             },
             dist : {
                 src : [
@@ -38,10 +38,10 @@ module.exports = function(grunt) {
             }
         },
         jsversion : {
-            withdependencies : {
+            standalone : {
                 namespace : 'daumtools',
-                src : '<%= concat.withdependencies.dest %>',
-                dest : '<%= concat.withdependencies.dest %>'
+                src : '<%= concat.standalone.dest %>',
+                dest : '<%= concat.standalone.dest %>'
             },
             dist : {
                 namespace : 'daumtools',
@@ -50,11 +50,11 @@ module.exports = function(grunt) {
             }
         },
         uglify : {
-            withdependencies : {
+            standalone : {
                 src : [
-                    '<%= jsversion.withdependencies.dest %>'
+                    '<%= jsversion.standalone.dest %>'
                 ],
-                dest : 'dist/<%= pkg.name %>-with-dependencies-<%= pkg.version %>.min.js'
+                dest : 'dist/<%= pkg.name %>-standalone-<%= pkg.version %>.min.js'
             },
             dist : {
                 src : [
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         },
         jasmine: {
             dist: {
-                src: '<%= concat.withdependencies.dest %>',
+                src: '<%= concat.standalone.dest %>',
                 options: {
                     specs: ['test/web2app_spec.js'],
                     outfile: 'web2app_spec.html'

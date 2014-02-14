@@ -46,10 +46,14 @@
         }
         
         function web2app_iOS(launchURI, storeURL, fallbackFunction) {
+            var clickedAt = new Date().getTime();
             setTimeout(function () {
-                fallbackFunction(storeURL);
-            }, 200); // launchURI와 storeURL이 둘다 실행되는 문제 방지
-            
+                var now = new Date().getTime();
+                if (now - clickedAt < 1200) {
+                    fallbackFunction(storeURL);
+                }
+            }, 1000);
+
             window.location.href = launchURI;
         }
 
@@ -109,7 +113,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "0.1.17";
+        exports.daumtools.web2app.version = "0.1.18";
     }
 }(window));
 

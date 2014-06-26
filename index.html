@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Web2app by daumcorp</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Web2app</h1>
+        <p>tiny javascript library to launch a mobile app. from a webpage</p>
+
+        <p class="view"><a href="https://github.com/daumcorp/web2app">View the Project on GitHub <small>daumcorp/web2app</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/daumcorp/web2app/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/daumcorp/web2app/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/daumcorp/web2app">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="web2app-library" class="anchor" href="#web2app-library"><span class="octicon octicon-link"></span></a>Web2App Library</h1>
+
+<p>Launch an mobile app. from a webpage</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">daumtools</span><span class="p">.</span><span class="nx">web2app</span><span class="p">({</span>
+    <span class="nx">urlScheme</span> <span class="o">:</span> <span class="s1">''</span><span class="p">,</span>                                 <span class="c1">// iphone : custom scheme</span>
+    <span class="nx">intentURI</span> <span class="o">:</span> <span class="s1">''</span><span class="p">,</span>                                 <span class="c1">// android : intent URI</span>
+    <span class="nx">appName</span>   <span class="o">:</span> <span class="s1">''</span><span class="p">,</span>                                 <span class="c1">// application Name (ex. facebook, twitter, daum)</span>
+    <span class="nx">storeURL</span>  <span class="o">:</span> <span class="s1">''</span><span class="p">,</span>                                 <span class="c1">// app store URL</span>
+    <span class="nx">willInvokeApp</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>                  <span class="c1">// function for logging</span>
+    <span class="nx">onAppMissing</span>  <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{},</span>                  <span class="c1">// fallback function (default. move to appstore)</span>
+    <span class="nx">onUnsupportedEnvironment</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>        <span class="c1">// fallback function</span>
+<span class="p">});</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/daumcorp">daumcorp</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>

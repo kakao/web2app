@@ -1,7 +1,7 @@
 {
     "name": "web2app",
     "description": "tiny javascript library to launch a mobile app. from a webpage",
-    "version": "0.1.19",
+    "version": "0.1.20",
     "author": {
         "name" : "Kim Du-hyeong",
         "email" : "dduskim@gmail.com",

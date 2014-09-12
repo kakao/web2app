@@ -1,108 +1,140 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-		<title>web2app test</title>
-		<style type="text/css">
-		
-		
-		</style>
-	</head>
-	<body>
-	
-        <h3>web2app</h3>
-        
-        <button id="web2appTestBtn">마이피플 web2app 공유하기</button>
-        
-        <br><br>
-        
-        <button id="web2appTestBtn2">카카오스토리 web2app 공유하기</button>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+	<title>web2app test</title>
+</head>
+<body>
 
-		<br><br>
+<script>
+	// key copy & paste 를 막기위해 멀리 떨어뜨려놓음 -_-;;
+	var KAKAO_TEST_KEY = 'd44932a7e94186c156d0ceab1e6a1a57';
+</script>
 
-		<button onclick="javascript:alert('test')">테스트버튼</button>
-         
-	    <script type="text/javascript" src="http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.14.js"></script>
-	    <script type="text/javascript" src="../lib/web2app.js"></script>
-	    <script>
-	    (function () {
-	        var addEvent = function () {
-	            if (document.addEventListener) {
-	                return function (el, type, fn) {
-	                    el.addEventListener(type, fn, false);
-	                };
-	            } else {
-	                return function (el, type, fn) {
-	                    el.attachEvent('on' + type, fn);
-	                };
-	            }
-	        }();
-	        
-	        var ua = util.userAgent(),
-	            btnEl = document.getElementById('web2appTestBtn'),
-	            scheme = 'myp',
-	            pkgName = 'net.daum.android.air',
-	            btnEl2 = document.getElementById('web2appTestBtn2'),
-	            scheme2 = 'storylink',
-	            pkgName2 = 'com.kakao.story';
-	        
-	        addEvent(btnEl, 'click', function () {
-                var urlScheme = 'myp://sendMessage?message=web2app test' +
-	                    '&url=' + encodeURIComponent('http://www.daum.net') +
-	                    '&appID=' + encodeURIComponent(document.domain),
-	                intentURI = 'intent://sendMessage?message=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') + 
-	                    '#Intent;scheme=' + scheme + ';package=' + pkgName + ';end', 
-	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName :
-	                        'itms-apps://itunes.apple.com/kr/app/id373539016?mt=8';
+<style>
+	body {padding:0;margin:0}
+	.tit_index {position:relative;z-index:30;width:100%;height:32px;margin-top:-1px;border-top:2px solid #7e7f86;font-size:16px;line-height:32px;background-color:#f5f5f5;background-image:-webkit-gradient(linear, left top, left bottom, from(#fdfdfd), to(#eee));background-image:-moz-linear-gradient(top, #fdfdfd, #eee);background-image:-o-linear-gradient(top, #fdfdfd, #eee);background-image:linear-gradient(to bottom, #fdfdfd, #eee);color:#000;text-indent:10px;-webkit-text-shadow:0 1px 3px #888;text-shadow:0 1px 3px #888}
+	.box_guide {overflow:hidden;padding:10px 0;border-bottom:1px solid #e0e0e0}
+</style>
 
-		        if (ua.platform === 'pc') {
-		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n마이피플이 설치된 스마트폰에서 이용해 주세요.');
-		        } else {
-		            daumtools.web2app({
-		                urlScheme : urlScheme,
-		                intentURI : intentURI,
-		                storeURL : appStoreURL,
-		                appName : '마이피플',
-		                onUnsupportedEnvironment: function() {
-		                    console.log('go to web page'); //example
-                        },
-                        willInvokeApp: function() {
-                            console.log('send click log'); //example
-                        }
-		            });
-		        }
-	        });
-            
-	        addEvent(btnEl2, 'click', function () {
-                var urlScheme = 'storylink://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
-                        '&appid=' + encodeURIComponent(document.domain) +
-                        '&appver=1.0&apiver=1.0',
-                    intentURI = 'intent://posting?post=' + encodeURIComponent('web2app test' + '\r\n' + 'http://www.daum.net') +
-                        '&appid=' + encodeURIComponent(document.domain) +
-                        '&appver=1.0&apiver=1.0' +
-                        '#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
-	                appStoreURL = ua.os.android ? 'market://details?id=' + pkgName2 : 
-	                    'itms-apps://itunes.apple.com/app/id486244601';
+<div id="daumWrap">
+	<div id="daumContent">
+		<h3 class="tit_index">카카오톡 web2app</h3>
+		<div class="box_guide" >
+			<button id="web2appTestBtn">카카오톡 공유하기 버튼</button>
+			<br/><br/><br/><br/>
+		</div>
 
-		        if (ua.platform === 'pc') {
-		            alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오스토리가 설치된 스마트폰에서 이용해 주세요.');
-		        } else {
-		            daumtools.web2app({
-		                urlScheme : urlScheme,
-                        intentURI : intentURI,
-                        storeURL : appStoreURL,
-                        appName : '카카오스토리'
-                        //,
-                        //onAppMissing: function() {
-                        //    window.location.href = 'http://www.daum.net';
-                        //}
-                    });
-		        }
-	        });
-	        
-	    })();
-	    </script>
-	</body>
+		<h3 class="tit_index">다음앱 web2app</h3>
+		<div class="box_guide" >
+			<button id="web2appTestBtn2">다음앱 실행 버튼</button>
+			<br/><br/><br/><br/>
+		</div>
+
+		<h3 class="tit_index">카카오스토리 web2app</h3>
+		<div class="box_guide" >
+			<button id="web2appTestBtn3">카카오스토리 공유하기 버튼</button>
+			<br/><br/><br/><br/>
+		</div>
+
+		<br/>
+		<button onclick="javascript:alert('test')">테스트용 alert 버튼</button>
+		<br/>
+		<br/>
+
+		<div id="logContainer"></div>
+	</div>
+</div>
+
+<script type="text/javascript" src="http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.14.js"></script>
+<script type="text/javascript" src="../lib/web2app.js"></script>
+<script>
+	(function () {
+		var ua = util.userAgent();
+
+		window.log = function (message) {
+			var container = document.getElementById('logContainer');
+			container.innerHTML += '<span>' + message + '</span>'
+		}
+
+		var	btnEl = document.getElementById('web2appTestBtn'),
+				scheme = 'kakaolink',
+				pkgName = 'com.kakao.talk',
+				urlScheme = 'kakaolink://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D',
+				intentURI = 'intent://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D#Intent;scheme=' + scheme + ';package=' + pkgName,
+				appStoreURL = ua.os.android ? 'market://details?id=' + pkgName : 'itms-apps://itunes.apple.com/app/id362057947';
+
+		btnEl.addEventListener('click', function () {
+			if (ua.platform === 'pc') {
+				alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오톡이 설치된 스마트폰에서 이용해 주세요.');
+			} else {
+				daumtools.web2app({
+					urlScheme : urlScheme,
+					intentURI : intentURI,
+					storeURL : appStoreURL,
+					appName : '카카오톡',
+					onUnsupportedEnvironment: function() {
+						console.log('go to web page'); //example
+					},
+					willInvokeApp: function() {
+						console.log('send click log'); //example
+					}
+				});
+			}
+		});
+
+		var	btnEl2 = document.getElementById('web2appTestBtn2'),
+				scheme2 = 'daumapps',
+				pkgName2 = 'net.daum.android.daum',
+				urlScheme2 = 'daumapps://open',
+				intentURI2 = 'intent://open#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
+				appStoreURL2 = ua.os.android ? 'market://details?id=' + pkgName2 : 'itms-apps://itunes.apple.com/us/app/da-eum-daum/id365494029';
+
+		btnEl2.addEventListener('click', function () {
+			if (ua.platform === 'pc') {
+				alert('모바일 기기에서 이용 가능한 기능입니다.\r\n다음앱이 설치된 스마트폰에서 이용해 주세요.');
+			} else {
+				daumtools.web2app({
+					urlScheme : urlScheme2,
+					intentURI : intentURI2,
+					storeURL : appStoreURL2,
+					appName : '다음앱'
+					//,
+					//onAppMissing: function() {
+					//    window.location.href = 'http://www.daum.net';
+					//}
+				});
+			}
+		});
+
+
+		// storylink://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D
+		// intent://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D#Intent;scheme=storylink;package=com.kakao.story;end
+		// daumtools.ua.os.android ? 'market://details?id=com.kakao.story' : 'itms-apps://itunes.apple.com/app/id486244601',
+
+		var	btnEl3 = document.getElementById('web2appTestBtn3'),
+				scheme3 = 'storylink',
+				pkgName3 = 'com.kakao.story',
+				urlScheme3 = 'storylink://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D',
+				intentURI3 = 'intent://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D#Intent;scheme=' + scheme3 + ';package=' + pkgName3 + ';end',
+				appStoreURL3 = ua.os.android ? 'market://details?id=' + pkgName3 : 'itms-apps://itunes.apple.com/app/id486244601';
+
+		btnEl3.addEventListener('click', function () {
+			if (ua.platform === 'pc') {
+				alert('모바일 기기에서 이용 가능한 기능입니다.\r\n카카오스토리가 설치된 스마트폰에서 이용해 주세요.');
+			} else {
+				daumtools.web2app({
+					urlScheme : urlScheme3,
+					intentURI : intentURI3,
+					storeURL : appStoreURL3,
+					appName : '카카오스토리'
+				});
+			}
+		});
+
+	})();
+</script>
+</body>
 </html>

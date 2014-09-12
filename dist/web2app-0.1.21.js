@@ -124,7 +124,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "0.1.20";
+        exports.daumtools.web2app.version = "0.1.21";
     }
 }(window));
 

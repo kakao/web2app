@@ -13,8 +13,7 @@
             os = ua.os;
         
         var intentNotSupportedBrowserList = [
-            'firefox',
-            'opr'
+            'firefox'
         ];
         
         var moveToStore = function (storeURL) {
@@ -87,9 +86,11 @@
         
         function isPageVisible() {
             var attrNames = ['hidden', 'webkitHidden'];
-            for(var i in attrNames) {
-                if (document[attrNames[i]] !== 'undefined') {
-                    return !document[attrNames[i]];
+            for(var name in attrNames) {
+                if (attrNames.hasOwnProperty(name)) {
+                    if (document[attrNames[name]] !== 'undefined') {
+                        return !document[attrNames[name]];
+                    }
                 }
             }
             return true;

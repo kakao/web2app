@@ -39,12 +39,11 @@
 			<br/><br/><br/><br/>
 		</div>
 
-		<br/>
-		<button onclick="javascript:alert('test')">테스트용 alert 버튼</button>
-		<br/>
-		<br/>
+		<br/><br/><br/>
 
 		<div id="logContainer"></div>
+
+		<br/><br/><br/>
 	</div>
 </div>
 
@@ -57,14 +56,14 @@
 		window.log = function (message) {
 			var container = document.getElementById('logContainer');
 			container.innerHTML += '<span>' + message + '</span>'
-		}
+		};
 
 		var	btnEl = document.getElementById('web2appTestBtn'),
-				scheme = 'kakaolink',
-				pkgName = 'com.kakao.talk',
-				urlScheme = 'kakaolink://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D',
-				intentURI = 'intent://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D#Intent;scheme=' + scheme + ';package=' + pkgName,
-				appStoreURL = ua.os.android ? 'market://details?id=' + pkgName : 'itms-apps://itunes.apple.com/app/id362057947';
+			scheme = 'kakaolink',
+			pkgName = 'com.kakao.talk',
+			urlScheme = 'kakaolink://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D',
+			intentURI = 'intent://send?appkey=d44932a7e94186c156d0ceab1e6a1a57&appver=1.0&apiver=3.0&linkver=3.5&objs=%5B%7B"objtype"%3A"label"%2C"text"%3A"%5B%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C%5D%5Cr%5Cn%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F"%7D%2C%7B"objtype"%3A"link"%2C"text"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%2C"action"%3A%7B"type"%3A"web"%2C"url"%3A"http%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld"%7D%7D%5D#Intent;scheme=' + scheme + ';package=' + pkgName + ';end',
+			appStoreURL = ua.os.android ? 'market://details?id=' + pkgName : 'itms-apps://itunes.apple.com/app/id362057947';
 
 		btnEl.addEventListener('click', function () {
 			if (ua.platform === 'pc') {
@@ -86,11 +85,11 @@
 		});
 
 		var	btnEl2 = document.getElementById('web2appTestBtn2'),
-				scheme2 = 'daumapps',
-				pkgName2 = 'net.daum.android.daum',
-				urlScheme2 = 'daumapps://open',
-				intentURI2 = 'intent://open#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
-				appStoreURL2 = ua.os.android ? 'market://details?id=' + pkgName2 : 'itms-apps://itunes.apple.com/us/app/da-eum-daum/id365494029';
+			scheme2 = 'daumapps',
+			pkgName2 = 'net.daum.android.daum',
+			urlScheme2 = 'daumapps://open',
+			intentURI2 = 'intent://open#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
+			appStoreURL2 = ua.os.android ? 'market://details?id=' + pkgName2 : 'itms-apps://itunes.apple.com/us/app/da-eum-daum/id365494029';
 
 		btnEl2.addEventListener('click', function () {
 			if (ua.platform === 'pc') {
@@ -109,17 +108,12 @@
 			}
 		});
 
-
-		// storylink://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D
-		// intent://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D#Intent;scheme=storylink;package=com.kakao.story;end
-		// daumtools.ua.os.android ? 'market://details?id=com.kakao.story' : 'itms-apps://itunes.apple.com/app/id486244601',
-
 		var	btnEl3 = document.getElementById('web2appTestBtn3'),
-				scheme3 = 'storylink',
-				pkgName3 = 'com.kakao.story',
-				urlScheme3 = 'storylink://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D',
-				intentURI3 = 'intent://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D#Intent;scheme=' + scheme3 + ';package=' + pkgName3 + ';end',
-				appStoreURL3 = ua.os.android ? 'market://details?id=' + pkgName3 : 'itms-apps://itunes.apple.com/app/id486244601';
+			scheme3 = 'storylink',
+			pkgName3 = 'com.kakao.story',
+			urlScheme3 = 'storylink://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D',
+			intentURI3 = 'intent://posting?post=%EA%B0%9C%EC%99%80%20%EA%B3%A0%EC%96%91%EC%9D%B4%20%EC%84%A0%ED%98%B8%EB%8F%84%EC%97%90%20%EB%94%B0%EB%9D%BC%20%EC%82%AC%EB%9E%8C%EC%9D%98%20%EC%84%B1%EA%B2%A9%EB%8F%84%20%EC%95%8C%20%EC%88%98%20%EC%9E%88%EB%8B%A4%3F%0D%0Ahttp%3A%2F%2Fm.media.daum.net%2Fm%2Fmedia%2Frealtime%2Fnewsview%2F20140528130607055%3Ffoo%3Dbar%26hello%3Dworld&appid=dd8124.dev.daum.net&appname=%EB%AF%B8%EB%94%94%EC%96%B4%EB%8B%A4%EC%9D%8C&appver=1.0&apiver=1.0&urlinfo=%7B"title"%3A"%EC%9D%91%EB%8B%B5%ED%95%98%EB%9D%BC%201994"%2C"desc"%3A"%EC%82%BC%EC%B2%9C%ED%8F%AC%EB%9E%91%20%EC%A1%B0%EC%9C%A4%EC%A7%84%EC%9D%B4%20%EC%A2%8B%EC%95%84%EC%9A%94"%2C"imageurl"%3A%5B"http%3A%2F%2Fi1.daumcdn.net%2Fthumb%2FC110x160%2F70%2F256CBE4E523127E7027C29"%5D%2C"type"%3A"article"%7D#Intent;scheme=' + scheme3 + ';package=' + pkgName3 + ';end',
+			appStoreURL3 = ua.os.android ? 'market://details?id=' + pkgName3 : 'itms-apps://itunes.apple.com/app/id486244601';
 
 		btnEl3.addEventListener('click', function () {
 			if (ua.platform === 'pc') {
@@ -133,7 +127,6 @@
 				});
 			}
 		});
-
 	})();
 </script>
 </body>

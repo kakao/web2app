@@ -1,47 +1,49 @@
 {
-    "name": "web2app",
-    "description": "tiny javascript library to launch a mobile app. from a webpage",
-    "version": "0.1.22",
-    "author": {
-        "name" : "Kim Du-hyeong",
-        "email" : "dduskim@gmail.com",
-        "url" : "https://github.com/daumcorp/web2app"
-    },
-    "dependencies": {
-    },
-    "devDependencies": {
-        "grunt": "~0.4.1",
-        "grunt-cli": "~0.1.9",
-        "grunt-contrib-concat": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-contrib-jasmine": "*",
-        "grunt-remotefile": "*",
-        "grunt-jsversion": "*"
-    },
-    "dcomboDependencies": {
-        "userAgent" : "1.0.14"
-    },
-    "keywords" : [
-        "web2app",
-        "webtoapp"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:daumcorp/web2app.git"
-    },
-    "main": "lib/web2app.js",
-    "engines": { "node": ">= 0.8" },
-    "scripts": {
-        "test": "node build.js",
-        "build": "node build.js",
-        "start": "node server.js"
-    },
-    "licenses": [
-        {
-          "type": "MIT",
-          "url": "https://github.com/daumcorp/web2app/blob/master/LICENSE"
-        }
-    ],
-    "copyright": "HTML5 Tech. Team in Daum Communications Corp."
+  "name": "web2app",
+  "description": "tiny javascript library to launch a mobile app. from a webpage",
+  "version": "0.1.22",
+  "author": {
+    "name": "Kim Du-hyeong",
+    "email": "dduskim@gmail.com",
+    "url": "https://github.com/daumcorp/web2app"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-cli": "~0.1.9",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-jasmine": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-jsversion": "*",
+    "grunt-remotefile": "*"
+  },
+  "dcomboDependencies": {
+    "userAgent": "1.0.14"
+  },
+  "keywords": [
+    "web2app",
+    "webtoapp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:daumcorp/web2app.git"
+  },
+  "main": "lib/web2app.js",
+  "engines": {
+    "node": ">= 0.8"
+  },
+  "scripts": {
+    "test": "node build.js",
+    "build": "node build.js",
+    "start": "node server.js"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/daumcorp/web2app/blob/master/LICENSE"
+    }
+  ],
+  "copyright": "HTML5 Tech. Team in Daum Communications Corp."
 }

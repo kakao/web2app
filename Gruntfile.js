@@ -77,6 +77,9 @@ module.exports = function(grunt) {
                     outfile: 'web2app_spec.html'
                 }
             }
+        },
+        clean: {
+            build: ['dist']
         }
     });
 
@@ -85,10 +88,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-jsversion');
     grunt.loadNpmTasks('grunt-remotefile');
 
     // Default task.
     grunt.registerTask('test', ['jshint', 'concat', 'jasmine']);
-    grunt.registerTask('default', ['remotefile', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
+    grunt.registerTask('build', ['clean', 'remotefile', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
 };

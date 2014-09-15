@@ -8,8 +8,7 @@
             os = ua.os;
         
         var intentNotSupportedBrowserList = [
-            'firefox',
-            'opr'
+            'firefox'
         ];
         
         var moveToStore = function (storeURL) {
@@ -25,10 +24,12 @@
             willInvokeApp();
             
             setTimeout(function () {
-                if (os.android && context.storeURL) {
+                if (os.android) {
                     if (isIntentNotSupportedBrowser() || !!context.useUrlScheme) {
-                        web2app_android_scheme(context.urlScheme, context.storeURL, onAppMissing);
-                    } else {
+                        if (context.storeURL) {
+                            web2app_android_scheme(context.urlScheme, context.storeURL, onAppMissing);
+                        }
+                    } else if (context.intentURI){
                         web2app_android_intent(context.intentURI);
                     }
                 } else if (os.ios && context.storeURL) {
@@ -46,14 +47,13 @@
         }
         
         function web2app_iOS(launchURI, storeURL, fallbackFunction) {
-            var clickedAt = new Date().getTime();
-            setTimeout(function () {
-                var now = new Date().getTime();
-                if (now - clickedAt < 1200) {
-                    fallbackFunction(storeURL);
-                }
-            }, 1000);
-
+            var tid = deferFallback(function () {
+                fallbackFunction(storeURL);
+            });
+            window.addEventListener('pagehide', function clear () {
+                clearTimeout(tid);
+                window.removeEventListener('pagehide', clear);
+            });
             window.location.href = launchURI;
         }
 
@@ -62,20 +62,32 @@
         }
         
         function web2app_android_scheme(launchURI, storeURL, fallbackFunction) {
-            var clickedAt = new Date().getTime();
-            setTimeout(function () {
-                var now = new Date().getTime();
-                if (isPageVisible() && now - clickedAt < 2000) {
-                    fallbackFunction(storeURL);
-                }
-            }, 1000);
+            var tid = deferFallback(function () {
+                fallbackFunction(storeURL);
+            });
             var iframe = createHiddenIframe('appLauncher');
             iframe.src = launchURI;
         }
+
+        function deferFallback(callback) {
+            var clickedAt = new Date().getTime();
+            return setTimeout(function () {
+                var now = new Date().getTime();
+                if (isPageVisible() && now - clickedAt < 2500) {
+                    callback();
+                }
+            }, 2000);
+            // 앱을 처음 실행하는 경우에는 pagehide가 발생하기 전(앱이 실행되어 브라우저 pagehide 발생)에 fallback이 실행되는 경우가 있어 2초 정도 필요
+        }
         
         function isPageVisible() {
-            if (typeof document.webkitHidden !== 'undefined') {
-                return !document.webkitHidden;
+            var attrNames = ['hidden', 'webkitHidden'];
+            for(var name in attrNames) {
+                if (attrNames.hasOwnProperty(name)) {
+                    if (document[attrNames[name]] !== 'undefined') {
+                        return !document[attrNames[name]];
+                    }
+                }
             }
             return true;
         }
@@ -113,7 +125,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "0.1.18";
+        exports.daumtools.web2app.version = "0.1.22";
     }
 }(window));
 

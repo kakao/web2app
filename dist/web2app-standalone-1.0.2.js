@@ -9,84 +9,95 @@
     
     exports.web2app = (function () {
 
-        var ua = daumtools.userAgent(),
+        var IOS8_TIMEOUT = 1 * 1000,
+            IOS7_TIMEOUT = 2 * 1000,
+            ua = daumtools.userAgent(),
             os = ua.os;
         
         var intentNotSupportedBrowserList = [
             'firefox'
         ];
         
-        var moveToStore = function (storeURL) {
+        function moveToStore (storeURL) {
             window.location.href = storeURL;
-        };
-        
-        function web2app(context) {
-            
+        }
+
+        function web2app (context) {
             var willInvokeApp = (typeof context.willInvokeApp === 'function') ? context.willInvokeApp : function(){},
                 onAppMissing  = (typeof context.onAppMissing === 'function')  ? context.onAppMissing  : moveToStore,
                 onUnsupportedEnvironment = (typeof context.onUnsupportedEnvironment === 'function') ? context.onUnsupportedEnvironment : function(){};
             
             willInvokeApp();
-            
-            setTimeout(function () {
-                if (os.android) {
-                    if (isIntentNotSupportedBrowser() || !!context.useUrlScheme) {
-                        if (context.storeURL) {
-                            web2app_android_scheme(context.urlScheme, context.storeURL, onAppMissing);
-                        }
-                    } else if (context.intentURI){
-                        web2app_android_intent(context.intentURI);
+
+            if (os.android) {
+                if (isIntentNotSupportedBrowser() || !!context.useUrlScheme) {
+                    if (context.storeURL) {
+                        web2appViaCustomUrlSchemeForAndroid(context.urlScheme, context.storeURL, onAppMissing);
                     }
-                } else if (os.ios && context.storeURL) {
-                    web2app_iOS(context.urlScheme, context.storeURL, onAppMissing);
-                } else {
-                    onUnsupportedEnvironment();
+                } else if (context.intentURI){
+                    web2appViaIntentURI(context.intentURI);
                 }
-            }, 100);                        
+            } else if (os.ios && context.storeURL) {
+                web2appViaCustomUrlSchemeForIOS(context.urlScheme, context.storeURL, onAppMissing);
+            } else {
+                setTimeout(function () {
+                    onUnsupportedEnvironment();
+                }, 100);
+            }
         }
         
-        function isIntentNotSupportedBrowser() {
+        function isIntentNotSupportedBrowser () {
             var blackListRegexp = new RegExp(intentNotSupportedBrowserList.join('|'), "i");
-
             return blackListRegexp.test(ua.ua);
         }
-        
-        function web2app_iOS(launchURI, storeURL, fallbackFunction) {
-            var tid = deferFallback(function () {
+
+        function web2appViaCustomUrlSchemeForAndroid (urlScheme, storeURL, fallbackFunction) {
+            setTimeout(function () {
                 fallbackFunction(storeURL);
-            });
+            }, 1000);
+            launchAppViaHiddenIframe(urlScheme);
+        }
+
+        function web2appViaIntentURI (launchURI) {
+            setTimeout(function () {
+                top.location.href = launchURI;
+            }, 100);
+        }
+
+        function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallbackFunction) {
+            if (parseInt(ua.os.version.major, 10) < 8) {
+                bindPagehideEvent(storeURL, fallbackFunction);
+            } else {
+                bindVisibilityChangeEvent(storeURL, fallbackFunction);
+            }
+            launchAppViaHiddenIframe(urlScheme);
+        }
+
+        function bindPagehideEvent (storeURL, fallbackFunction) {
+            var tid = setTimeout(function () {
+                fallbackFunction(storeURL);
+            }, IOS7_TIMEOUT);
             window.addEventListener('pagehide', function clear () {
-                clearTimeout(tid);
-                window.removeEventListener('pagehide', clear);
-            });
-            var iframe = createHiddenIframe('appLauncher');
-            iframe.src = launchURI;
-        }
-
-        function web2app_android_intent(launchURI) {
-            top.location.href = launchURI;
-        }
-        
-        function web2app_android_scheme(launchURI, storeURL, fallbackFunction) {
-            var tid = deferFallback(function () {
-                fallbackFunction(storeURL);
-            });
-            var iframe = createHiddenIframe('appLauncher');
-            iframe.src = launchURI;
-        }
-
-        function deferFallback(callback) {
-            var clickedAt = new Date().getTime();
-            return setTimeout(function () {
-                var now = new Date().getTime();
-                if (isPageVisible() && now - clickedAt < 2500) {
-                    callback();
+                if (isPageVisible()) {
+                    clearTimeout(tid);
+                    window.removeEventListener('pagehide', clear);
                 }
-            }, 2000);
-            // 앱을 처음 실행하는 경우에는 pagehide가 발생하기 전(앱이 실행되어 브라우저 pagehide 발생)에 fallback이 실행되는 경우가 있어 2초 정도 필요
+            });
         }
-        
-        function isPageVisible() {
+
+        function bindVisibilityChangeEvent (storeURL, fallbackFunction) {
+            var tid = setTimeout(function () {
+                fallbackFunction(storeURL);
+            }, IOS8_TIMEOUT);
+            document.addEventListener('visibilitychange', function clear () {
+                if (isPageVisible()) {
+                    clearTimeout(tid);
+                    document.removeEventListener('visibilitychange', clear);
+                }
+            });
+        }
+
+        function isPageVisible () {
             var attrNames = ['hidden', 'webkitHidden'];
             for(var i=0, len=attrNames.length; i<len; i++) {
                 if (document[attrNames[i]] !== 'undefined') {
@@ -95,8 +106,15 @@
             }
             return true;
         }
-        
-        function createHiddenIframe(id) {
+
+        function launchAppViaHiddenIframe (urlScheme) {
+            setTimeout(function () {
+                var iframe = createHiddenIframe('appLauncher');
+                iframe.src = urlScheme;
+            }, 100);
+        }
+
+        function createHiddenIframe (id) {
             var iframe = document.createElement('iframe');
             iframe.id = id;
             iframe.style.border = 'none';
@@ -107,7 +125,7 @@
             document.body.appendChild(iframe);
             return iframe;
         }
-                
+
         /**
          * app.을 실행하거나 / store 페이지에 연결하여 준다.
          * @function 
@@ -129,7 +147,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.1";
+        exports.daumtools.web2app.version = "1.0.2";
     }
 }(window));
 

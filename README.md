@@ -15,3 +15,4 @@ daumtools.web2app({
 });
 ```
 
+Dependency : [ua_parser](https://github.com/daumcorp/ua_parser)

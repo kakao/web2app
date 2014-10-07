@@ -9,14 +9,16 @@
     
     exports.web2app = (function () {
 
-        var IOS8_TIMEOUT = 1 * 1000,
-            IOS7_TIMEOUT = 2 * 1000,
+        var TIMEOUT_IOS8 = 1 * 1000,
+            TIMEOUT_IOS7 = 2 * 1000,
+            TIMEOUT_ANDROID = 3 * 100,
+            INTERVAL = 100,
             ua = daumtools.userAgent(),
-            os = ua.os;
-        
-        var intentNotSupportedBrowserList = [
-            'firefox'
-        ];
+            os = ua.os,
+            intentNotSupportedBrowserList = [
+                'firefox',
+                'opr'
+            ];
         
         function moveToStore (storeURL) {
             window.location.href = storeURL;
@@ -51,11 +53,19 @@
             return blackListRegexp.test(ua.ua);
         }
 
-        function web2appViaCustomUrlSchemeForAndroid (urlScheme, storeURL, fallbackFunction) {
-            setTimeout(function () {
-                fallbackFunction(storeURL);
-            }, 1000);
+        function web2appViaCustomUrlSchemeForAndroid (urlScheme, storeURL, fallback) {
+            deferFallback(TIMEOUT_ANDROID, storeURL, fallback);
             launchAppViaHiddenIframe(urlScheme);
+        }
+
+        function deferFallback(timeout, storeURL, fallback) {
+            var clickedAt = new Date().getTime();
+            return setTimeout(function () {
+                var now = new Date().getTime();
+                if (isPageVisible() && now - clickedAt < timeout + INTERVAL) {
+                    fallback(storeURL);
+                }
+            }, timeout);
         }
 
         function web2appViaIntentURI (launchURI) {
@@ -64,19 +74,19 @@
             }, 100);
         }
 
-        function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallbackFunction) {
+        function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback) {
+            var tid;
             if (parseInt(ua.os.version.major, 10) < 8) {
-                bindPagehideEvent(storeURL, fallbackFunction);
+                tid = deferFallback(TIMEOUT_IOS7, storeURL, fallback);
+                bindPagehideEvent(tid);
             } else {
-                bindVisibilityChangeEvent(storeURL, fallbackFunction);
+                tid = deferFallback(TIMEOUT_IOS8, storeURL, fallback);
+                bindVisibilityChangeEvent(tid);
             }
             launchAppViaHiddenIframe(urlScheme);
         }
 
-        function bindPagehideEvent (storeURL, fallbackFunction) {
-            var tid = setTimeout(function () {
-                fallbackFunction(storeURL);
-            }, IOS7_TIMEOUT);
+        function bindPagehideEvent (tid) {
             window.addEventListener('pagehide', function clear () {
                 if (isPageVisible()) {
                     clearTimeout(tid);
@@ -85,10 +95,7 @@
             });
         }
 
-        function bindVisibilityChangeEvent (storeURL, fallbackFunction) {
-            var tid = setTimeout(function () {
-                fallbackFunction(storeURL);
-            }, IOS8_TIMEOUT);
+        function bindVisibilityChangeEvent (tid) {
             document.addEventListener('visibilitychange', function clear () {
                 if (isPageVisible()) {
                     clearTimeout(tid);
@@ -139,15 +146,3 @@
 })(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
 
     
-
-
-(function (exports) {
-    "use strict";
-
-    /* package version info */
-    exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
-    if(exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.2";
-    }
-}(window));
-

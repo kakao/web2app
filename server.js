@@ -2,7 +2,7 @@ var http = require("http"),
     url = require("url"),
     path = require("path"),
     fs = require("fs"),
-    port = process.argv[2] || 8124;
+    port = process.env.HTTP_PORT || 8124;
 
 var exists = fs.exists || path.exists;
 http.createServer(function(request, response) {

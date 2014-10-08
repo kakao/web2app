@@ -5,3 +5,4 @@
 .idea/
 *.iml
 .DS_Store
+/bower_components

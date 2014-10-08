@@ -11,19 +11,13 @@ module.exports = function(grunt) {
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.copyright %>;' + 
                 ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
         },
-        remotefile : {
-            dist: {
-                url:'http://m1.daumcdn.net/svc/original/U03/cssjs/userAgent/userAgent-1.0.14.min.js',
-                dest:'dependency/userAgent.js'    
-            }
-        },
         concat : {
             options: {
                 separator: "\n\n"
             },
             standalone : {
                 src : [
-                    '<%= remotefile.dist.dest%>',
+                    'bower_components/ua_parser/src/js/userAgent.js',
                     '<%= meta.banner %>',
                     'lib/*.js'
                 ],
@@ -94,5 +88,5 @@ module.exports = function(grunt) {
 
     // Default task.
     grunt.registerTask('test', ['jshint', 'concat', 'jasmine']);
-    grunt.registerTask('build', ['clean', 'remotefile', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
 };

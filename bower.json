@@ -23,6 +23,6 @@
     "tests"
   ],
   "dependencies": {
-    "ua_parser": "~1.0.13"
+    "ua_parser": "~1.0.14"
   }
 }

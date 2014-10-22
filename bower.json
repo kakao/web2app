@@ -20,7 +20,13 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "build.js",
+    "samples/*",
+    "package.json",
+    "server.js",
+    "Gruntfile.js",
+    "README.md"
   ],
   "dependencies": {
     "ua_parser": "~1.0.14"

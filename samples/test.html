@@ -99,11 +99,10 @@
 					urlScheme : urlScheme2,
 					intentURI : intentURI2,
 					storeURL : appStoreURL2,
-					appName : '다음앱'
-					//,
-					//onAppMissing: function() {
-					//    window.location.href = 'http://www.daum.net';
-					//}
+					appName : '다음앱',
+					onAppMissing: function() {
+					    window.location.href = 'http://www.daum.net';
+					}
 				});
 			}
 		});

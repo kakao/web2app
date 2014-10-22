@@ -4,8 +4,8 @@
     
     exports.web2app = (function () {
 
-        var TIMEOUT_IOS8 = 1 * 1000,
-            TIMEOUT_IOS7 = 2 * 1000,
+        var TIMEOUT_IOS_SHORT = 1 * 1000,
+            TIMEOUT_IOS_LONG = 2 * 1000,
             TIMEOUT_ANDROID = 3 * 100,
             INTERVAL = 100,
             ua = daumtools.userAgent(),
@@ -72,10 +72,15 @@
         function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback) {
             var tid;
             if (parseInt(ua.os.version.major, 10) < 8) {
-                tid = deferFallback(TIMEOUT_IOS7, storeURL, fallback);
+                tid = deferFallback(TIMEOUT_IOS_LONG, storeURL, fallback);
                 bindPagehideEvent(tid);
             } else {
-                tid = deferFallback(TIMEOUT_IOS8, storeURL, fallback);
+                // to avoid ios store alert
+                if (moveToStore === fallback) {
+                    tid = deferFallback(TIMEOUT_IOS_SHORT, storeURL, fallback);
+                } else {
+                    tid = deferFallback(TIMEOUT_IOS_LONG, storeURL, fallback);
+                }
                 bindVisibilityChangeEvent(tid);
             }
             launchAppViaHiddenIframe(urlScheme);
@@ -149,7 +154,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.3";
+        exports.daumtools.web2app.version = "1.0.4";
     }
 }(window));
 

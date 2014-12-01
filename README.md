@@ -10,6 +10,7 @@ daumtools.web2app({
 	appName   : '', 								// application Name (ex. facebook, twitter, daum)
 	storeURL  : '',									// app store URL
 	willInvokeApp : function() {},					// function for logging
+	afterInvokeApp : function() {},					// function invoked after logic
 	onAppMissing  : function() {},					// fallback function (default. move to appstore)
 	onUnsupportedEnvironment : function() {}		// fallback function
 });

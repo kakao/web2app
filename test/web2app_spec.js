@@ -28,6 +28,9 @@ describe("web2app.js", function () {
             },
             willInvokeApp: function() {
 
+            },
+            afterInvokeApp: function() {
+
             }
         });
 

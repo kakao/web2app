@@ -1,6 +1,6 @@
 # Web2App Library
 
-Launch an mobile app. from a webpage
+Launch a mobile app. from a webpage
 
 
 ```javascript
@@ -14,5 +14,7 @@ daumtools.web2app({
 	onUnsupportedEnvironment : function() {}		// fallback function
 });
 ```
+
+Warn : `onAppMissing` fallback function isn't working on chrome, because chrome should use the [intent](https://developer.chrome.com/multidevice/android/intents).
 
 Dependency : [ua_parser](https://github.com/daumcorp/ua_parser)

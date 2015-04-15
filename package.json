@@ -5,7 +5,7 @@
   "author": {
     "name": "Kim Du-hyeong",
     "email": "dduskim@gmail.com",
-    "url": "https://github.com/daumcorp/web2app"
+    "url": "https://github.com/html5crew/web2app"
   },
   "dependencies": {},
   "devDependencies": {
@@ -20,7 +20,7 @@
     "grunt-remotefile": "*"
   },
   "dcomboDependencies": {
-    "userAgent": "1.0.14"
+    "userAgent": "1.0.15"
   },
   "keywords": [
     "web2app",
@@ -28,7 +28,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:daumcorp/web2app.git"
+    "url": "git@github.com:html5crew/web2app.git"
   },
   "main": "lib/web2app.js",
   "engines": {
@@ -42,7 +42,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/daumcorp/web2app/blob/master/LICENSE"
+      "url": "https://github.com/html5crew/web2app/blob/master/LICENSE"
     }
   ],
   "copyright": "HTML5 Tech. Team in Daum Communications Corp."

@@ -17,4 +17,4 @@ daumtools.web2app({
 
 Warning : `onAppMissing` fallback function isn't working on chrome, because chrome should use the [intent](https://developer.chrome.com/multidevice/android/intents).
 
-Dependency : [ua_parser](https://github.com/daumcorp/ua_parser)
+Dependency : [ua_parser](https://github.com/html5crew/ua_parser)

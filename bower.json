@@ -29,6 +29,6 @@
     "README.md"
   ],
   "dependencies": {
-    "ua_parser": "~1.0.14"
+    "ua_parser": "~1.0.15"
   }
 }

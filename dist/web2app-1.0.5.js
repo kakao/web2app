@@ -1,4 +1,4 @@
-/*jshint devel: true */
+/* global daumtools, jshint devel: true */
 (function (exports) {
     "use strict";
     
@@ -12,7 +12,8 @@
             os = ua.os,
             intentNotSupportedBrowserList = [
                 'firefox',
-                'opr'
+                'opr',
+                'fb_iab'
             ];
         
         function moveToStore (storeURL) {
@@ -154,7 +155,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.4";
+        exports.daumtools.web2app.version = "1.0.5";
     }
 }(window));
 

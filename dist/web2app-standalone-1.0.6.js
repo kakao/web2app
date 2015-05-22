@@ -178,12 +178,10 @@
             willInvokeApp();
 
             if (os.android) {
-                if (isIntentNotSupportedBrowser() || !!context.useUrlScheme) {
-                    if (context.storeURL) {
-                        web2appViaCustomUrlSchemeForAndroid(context.urlScheme, context.storeURL, onAppMissing);
-                    }
-                } else if (context.intentURI){
+                if (isIntentSupportedBrowser() && context.intentURI && !context.useUrlScheme) {
                     web2appViaIntentURI(context.intentURI);
+                } else if (context.storeURL) {
+                    web2appViaCustomUrlSchemeForAndroid(context.urlScheme, context.storeURL, onAppMissing);
                 }
             } else if (os.ios && context.storeURL) {
                 web2appViaCustomUrlSchemeForIOS(context.urlScheme, context.storeURL, onAppMissing);
@@ -194,9 +192,11 @@
             }
         }
         
-        function isIntentNotSupportedBrowser () {
+        // chrome 25 and later supports intent. https://developer.chrome.com/multidevice/android/intents
+        function isIntentSupportedBrowser () {
+            var supportsIntent = ua.browser.chrome && +(ua.browser.version.major) >= 25;
             var blackListRegexp = new RegExp(intentNotSupportedBrowserList.join('|'), "i");
-            return blackListRegexp.test(ua.ua);
+            return supportsIntent && !blackListRegexp.test(ua.ua);
         }
 
         function web2appViaCustomUrlSchemeForAndroid (urlScheme, storeURL, fallback) {
@@ -305,7 +305,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.5";
+        exports.daumtools.web2app.version = "1.0.6";
     }
 }(window));
 

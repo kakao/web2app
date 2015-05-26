@@ -89,7 +89,7 @@
 			pkgName2 = 'net.daum.android.daum',
 			urlScheme2 = 'daumapps://open',
 			intentURI2 = 'intent://open#Intent;scheme=' + scheme2 + ';package=' + pkgName2 + ';end',
-			appStoreURL2 = ua.os.android ? 'market://details?id=' + pkgName2 : 'itms-apps://itunes.apple.com/us/app/da-eum-daum/id365494029';
+			appStoreURL2 = ua.os.android ? 'market://details?id=' + pkgName2 : 'itms-apps://itunes.apple.com/kr/app/da-eum-nyuseu-beulaujeo/id365494029?mt=8';
 
 		btnEl2.addEventListener('click', function () {
 			if (ua.platform === 'pc') {
@@ -99,10 +99,11 @@
 					urlScheme : urlScheme2,
 					intentURI : intentURI2,
 					storeURL : appStoreURL2,
-					appName : '다음앱',
-					onAppMissing: function() {
-					    window.location.href = 'http://www.daum.net';
-					}
+					appName : '다음앱'
+//					,
+//					onAppMissing: function() {
+//					    window.location.href = 'http://www.daum.net';
+//					}
 				});
 			}
 		});

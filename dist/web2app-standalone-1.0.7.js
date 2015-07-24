@@ -151,7 +151,7 @@
 /* global daumtools, jshint devel: true */
 (function (exports) {
     "use strict";
-    
+
     exports.web2app = (function () {
 
         var TIMEOUT_IOS_SHORT = 1 * 1000,
@@ -165,7 +165,7 @@
                 'opr',
                 'fb_iab'
             ];
-        
+
         function moveToStore (storeURL) {
             window.location.href = storeURL;
         }
@@ -174,7 +174,7 @@
             var willInvokeApp = (typeof context.willInvokeApp === 'function') ? context.willInvokeApp : function(){},
                 onAppMissing  = (typeof context.onAppMissing === 'function')  ? context.onAppMissing  : moveToStore,
                 onUnsupportedEnvironment = (typeof context.onUnsupportedEnvironment === 'function') ? context.onUnsupportedEnvironment : function(){};
-            
+
             willInvokeApp();
 
             if (os.android) {
@@ -191,7 +191,7 @@
                 }, 100);
             }
         }
-        
+
         // chrome 25 and later supports intent. https://developer.chrome.com/multidevice/android/intents
         function isIntentSupportedBrowser () {
             var supportsIntent = ua.browser.chrome && +(ua.browser.version.major) >= 25;
@@ -214,10 +214,16 @@
             }, timeout);
         }
 
-        function web2appViaIntentURI (launchURI) {
-            setTimeout(function () {
-                top.location.href = launchURI;
-            }, 100);
+        function web2appViaIntentURI (launchURI) {            
+            if ( ua.browser.chrome ){
+              move();
+            }else{
+              setTimeout(move, 100);
+            }
+
+            function move(){
+              top.location.href = launchURI;
+            }
         }
 
         function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback) {
@@ -286,17 +292,15 @@
 
         /**
          * app.을 실행하거나 / store 페이지에 연결하여 준다.
-         * @function 
-         * @param context {object} urlScheme, intentURI, storeURL, appName, onAppMissing, onUnsupportedEnvironment, willInvokeApp 
+         * @function
+         * @param context {object} urlScheme, intentURI, storeURL, appName, onAppMissing, onUnsupportedEnvironment, willInvokeApp
          * @example daumtools.web2app({ urlScheme : 'daumapps://open', intentURI : '', storeURL: 'itms-app://...', appName: '다음앱' });
          */
         return web2app;
-        
-    })();
-    
-})(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
 
-    
+    })();
+
+})(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
 
 
 (function (exports) {
@@ -305,7 +309,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.6";
+        exports.daumtools.web2app.version = "1.0.7";
     }
 }(window));
 

@@ -90,7 +90,13 @@
                 }
                 bindVisibilityChangeEvent(tid);
             }
-            launchAppViaHiddenIframe(urlScheme);
+
+            // https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12
+            if ( isSupportUniversalLinks() ){
+                launchAppViaChangingLocation(urlScheme);
+            }else{
+                launchAppViaHiddenIframe(urlScheme);
+            }
         }
 
         function bindPagehideEvent (tid) {
@@ -121,6 +127,10 @@
             return true;
         }
 
+        function launchAppViaChangingLocation (urlScheme){
+            window.top.location.href = urlScheme;
+        }
+
         function launchAppViaHiddenIframe (urlScheme) {
             setTimeout(function () {
                 var iframe = createHiddenIframe('appLauncher');
@@ -138,6 +148,10 @@
             iframe.style.overflow = 'hidden';
             document.body.appendChild(iframe);
             return iframe;
+        }
+
+        function isSupportUniversalLinks(){
+            return (parseInt(ua.os.version.major, 10) > 8 && ua.os.ios);
         }
 
         /**
@@ -159,7 +173,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.7";
+        exports.daumtools.web2app.version = "1.0.8";
     }
 }(window));
 

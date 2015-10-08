@@ -85,6 +85,7 @@
 
             // https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12
             if ( isSupportUniversalLinks() ){
+                clearTimeout(tid);
                 launchAppViaChangingLocation(urlScheme);
             }else{
                 launchAppViaHiddenIframe(urlScheme);
@@ -165,7 +166,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.9";
+        exports.daumtools.web2app.version = "1.0.10";
     }
 }(window));
 

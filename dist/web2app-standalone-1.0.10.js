@@ -151,11 +151,10 @@
 /* global daumtools, jshint devel: true */
 (function (exports) {
     "use strict";
-    
+
     exports.web2app = (function () {
 
-        var TIMEOUT_IOS_SHORT = 1 * 1000,
-            TIMEOUT_IOS_LONG = 2 * 1000,
+        var TIMEOUT_IOS = 2 * 1000,
             TIMEOUT_ANDROID = 3 * 100,
             INTERVAL = 100,
             ua = daumtools.userAgent(),
@@ -165,7 +164,7 @@
                 'opr',
                 'fb_iab'
             ];
-        
+
         function moveToStore (storeURL) {
             window.location.href = storeURL;
         }
@@ -174,7 +173,7 @@
             var willInvokeApp = (typeof context.willInvokeApp === 'function') ? context.willInvokeApp : function(){},
                 onAppMissing  = (typeof context.onAppMissing === 'function')  ? context.onAppMissing  : moveToStore,
                 onUnsupportedEnvironment = (typeof context.onUnsupportedEnvironment === 'function') ? context.onUnsupportedEnvironment : function(){};
-            
+
             willInvokeApp();
 
             if (os.android) {
@@ -191,7 +190,7 @@
                 }, 100);
             }
         }
-        
+
         // chrome 25 and later supports intent. https://developer.chrome.com/multidevice/android/intents
         function isIntentSupportedBrowser () {
             var supportsIntent = ua.browser.chrome && +(ua.browser.version.major) >= 25;
@@ -214,27 +213,33 @@
             }, timeout);
         }
 
-        function web2appViaIntentURI (launchURI) {
-            setTimeout(function () {
-                top.location.href = launchURI;
-            }, 100);
+        function web2appViaIntentURI (launchURI) {            
+            if ( ua.browser.chrome ){
+              move();
+            }else{
+              setTimeout(move, 100);
+            }
+
+            function move(){
+              top.location.href = launchURI;
+            }
         }
 
         function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback) {
-            var tid;
+            var tid = deferFallback(TIMEOUT_IOS, storeURL, fallback);
             if (parseInt(ua.os.version.major, 10) < 8) {
-                tid = deferFallback(TIMEOUT_IOS_LONG, storeURL, fallback);
                 bindPagehideEvent(tid);
             } else {
-                // to avoid ios store alert
-                if (moveToStore === fallback) {
-                    tid = deferFallback(TIMEOUT_IOS_SHORT, storeURL, fallback);
-                } else {
-                    tid = deferFallback(TIMEOUT_IOS_LONG, storeURL, fallback);
-                }
                 bindVisibilityChangeEvent(tid);
             }
-            launchAppViaHiddenIframe(urlScheme);
+
+            // https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12
+            if ( isSupportUniversalLinks() ){
+                clearTimeout(tid);
+                launchAppViaChangingLocation(urlScheme);
+            }else{
+                launchAppViaHiddenIframe(urlScheme);
+            }
         }
 
         function bindPagehideEvent (tid) {
@@ -265,6 +270,10 @@
             return true;
         }
 
+        function launchAppViaChangingLocation (urlScheme){
+            window.top.location.href = urlScheme;
+        }
+
         function launchAppViaHiddenIframe (urlScheme) {
             setTimeout(function () {
                 var iframe = createHiddenIframe('appLauncher');
@@ -284,19 +293,21 @@
             return iframe;
         }
 
+        function isSupportUniversalLinks(){
+            return (parseInt(ua.os.version.major, 10) > 8 && ua.os.ios);
+        }
+
         /**
          * app.을 실행하거나 / store 페이지에 연결하여 준다.
-         * @function 
-         * @param context {object} urlScheme, intentURI, storeURL, appName, onAppMissing, onUnsupportedEnvironment, willInvokeApp 
+         * @function
+         * @param context {object} urlScheme, intentURI, storeURL, appName, onAppMissing, onUnsupportedEnvironment, willInvokeApp
          * @example daumtools.web2app({ urlScheme : 'daumapps://open', intentURI : '', storeURL: 'itms-app://...', appName: '다음앱' });
          */
         return web2app;
-        
-    })();
-    
-})(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
 
-    
+    })();
+
+})(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
 
 
 (function (exports) {
@@ -305,7 +316,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.6";
+        exports.daumtools.web2app.version = "1.0.10";
     }
 }(window));
 

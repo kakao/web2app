@@ -183,7 +183,7 @@
                     web2appViaCustomUrlSchemeForAndroid(context.urlScheme, context.storeURL, onAppMissing);
                 }
             } else if (os.ios && context.storeURL) {
-                web2appViaCustomUrlSchemeForIOS(context.urlScheme, context.storeURL, onAppMissing);
+                web2appViaCustomUrlSchemeForIOS(context.urlScheme, context.storeURL, onAppMissing, context.universalLink);
             } else {
                 setTimeout(function () {
                     onUnsupportedEnvironment();
@@ -225,7 +225,7 @@
             }
         }
 
-        function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback) {
+        function web2appViaCustomUrlSchemeForIOS (urlScheme, storeURL, fallback, universalLink) {
             var tid = deferFallback(TIMEOUT_IOS, storeURL, fallback);
             if (parseInt(ua.os.version.major, 10) < 8) {
                 bindPagehideEvent(tid);
@@ -236,7 +236,10 @@
             // https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12
             if ( isSupportUniversalLinks() ){
                 clearTimeout(tid);
-                launchAppViaChangingLocation(urlScheme);
+                if (universalLink === undefined) {
+                    universalLink = urlScheme;
+                }
+                launchAppViaChangingLocation(universalLink);
             }else{
                 launchAppViaHiddenIframe(urlScheme);
             }
@@ -263,7 +266,7 @@
         function isPageVisible () {
             var attrNames = ['hidden', 'webkitHidden'];
             for(var i=0, len=attrNames.length; i<len; i++) {
-                if (document[attrNames[i]] !== 'undefined') {
+                if (typeof document[attrNames[i]] !== 'undefined') {
                     return !document[attrNames[i]];
                 }
             }
@@ -316,7 +319,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.10";
+        exports.daumtools.web2app.version = "1.0.11";
     }
 }(window));
 

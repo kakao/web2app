@@ -161,8 +161,7 @@
             os = ua.os,
             intentNotSupportedBrowserList = [
                 'firefox',
-                'opr',
-                'fb_iab'
+                'opr'
             ];
 
         function moveToStore (storeURL) {
@@ -235,9 +234,10 @@
 
             // https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html#//apple_ref/doc/uid/TP40016308-CH12
             if ( isSupportUniversalLinks() ){
-                clearTimeout(tid);
                 if (universalLink === undefined) {
                     universalLink = urlScheme;
+                } else {
+                    clearTimeout(tid);
                 }
                 launchAppViaChangingLocation(universalLink);
             }else{
@@ -319,7 +319,7 @@
     /* package version info */
     exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
     if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.11";
+        exports.daumtools.web2app.version = "1.0.12";
     }
 }(window));
 

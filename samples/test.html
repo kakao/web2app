@@ -44,7 +44,7 @@
 			<button id="web2appTestBtn4">선물하기 이동 버튼</button>
 			<br/><br/><br/><br/>
 		</div>
-		
+
 		<br/><br/><br/>
 
 		<div id="logContainer"></div>
@@ -110,6 +110,9 @@
 //					onAppMissing: function() {
 //					    window.location.href = 'http://www.daum.net';
 //					}
+//                  ,onAppMissing: function (storeURL) {
+//                      window.top.goStore(storeURL);
+//                  }
 				});
 			}
 		});
@@ -133,7 +136,7 @@
 				});
 			}
 		});
-		
+
 		// 선물하기 universalLink 적용
 	var	btnEl4 = document.getElementById('web2appTestBtn4'),
 		scheme4 = 'storylink',
@@ -156,7 +159,7 @@
 			});
 		}
 	});
-			
+
 	})();
 </script>
 </body>

@@ -1,4 +1,4 @@
-/* global daumtools, jshint devel: true */
+/* global exports, jshint devel: true */
 (function (exports) {
     "use strict";
 
@@ -7,7 +7,7 @@
         var TIMEOUT_IOS = 2 * 1000,
             TIMEOUT_ANDROID = 3 * 100,
             INTERVAL = 100,
-            ua = daumtools.userAgent(),
+            ua = exports.userAgent(),
             os = ua.os,
             intentNotSupportedBrowserList = [
                 'firefox',
@@ -15,7 +15,7 @@
             ];
 
         function moveToStore (storeURL) {
-            window.top.location.href = storeURL;
+            top.window.location.href = storeURL;
         }
 
         function web2app (context) {
@@ -70,7 +70,7 @@
             }
 
             function move(){
-                window.top.location.href = launchURI;
+                top.window.location.href = launchURI;
             }
         }
 
@@ -124,7 +124,7 @@
         }
 
         function launchAppViaChangingLocation (urlScheme){
-            window.top.location.href = urlScheme;
+            top.window.location.href = urlScheme;
         }
 
         function launchAppViaHiddenIframe (urlScheme) {
@@ -160,16 +160,12 @@
 
     })();
 
-})(window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools);
-
-
-(function (exports) {
-    "use strict";
-
-    /* package version info */
-    exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
-    if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.0.13";
+})((function (){
+    if (typeof exports === 'object') {
+        exports.daumtools = exports;
+        return exports;
+    } else if (typeof window === 'object') {
+        window.daumtools = (typeof window.daumtools === 'undefined') ? {} : window.daumtools;
+        return window.daumtools;
     }
-}(window));
-
+})());

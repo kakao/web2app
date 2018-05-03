@@ -1,16 +1,18 @@
 {
   "name": "web2app",
   "description": "tiny javascript library to launch a mobile app. from a webpage",
-  "version": "1.0.15",
+  "version": "1.1.0",
   "author": {
     "name": "Kim Du-hyeong",
     "email": "dduskim@gmail.com",
     "url": "https://github.com/html5crew/web2app"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ua_parser": "^1.2.4"
+  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.9",
+    "grunt": "^1.0.2",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-concat": "*",
     "grunt-contrib-jasmine": "*",
@@ -18,9 +20,6 @@
     "grunt-contrib-uglify": "*",
     "grunt-jsversion": "*",
     "grunt-remotefile": "*"
-  },
-  "dcomboDependencies": {
-    "userAgent": "1.0.15"
   },
   "keywords": [
     "web2app",

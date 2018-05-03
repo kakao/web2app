@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                 '<%= grunt.template.today("yyyy-mm-dd") %>\\n' + 
                 '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' + 
                 '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.copyright %>;' + 
-                ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
+                ' Licensed <%= _.map(pkg.licenses, "type").join(", ") %> */'
         },
         concat : {
             options: {
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             },
             standalone : {
                 src : [
-                    'bower_components/ua_parser/src/js/userAgent.js',
+                    'node_modules/ua_parser/src/js/ua_parser.js',
                     '<%= meta.banner %>',
                     'lib/*.js'
                 ],

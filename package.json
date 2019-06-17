@@ -1,25 +1,25 @@
 {
   "name": "web2app",
   "description": "tiny javascript library to launch a mobile app. from a webpage",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Kim Du-hyeong",
     "email": "dduskim@gmail.com",
     "url": "https://github.com/html5crew/web2app"
   },
   "dependencies": {
-    "ua_parser": "^1.2.4"
+    "ua_parser": "^1.2.6"
   },
   "devDependencies": {
-    "grunt": "^1.0.2",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-clean": "^0.6.0",
+    "grunt": "^1.0.4",
+    "grunt-browserify": "^5.3.0",
+    "grunt-cli": "^1.3.2",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-concat": "*",
-    "grunt-contrib-jasmine": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-jsversion": "*",
-    "grunt-remotefile": "*"
+    "grunt-contrib-jasmine": "^1.2.0",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-preprocess": "^5.1.0"
   },
   "keywords": [
     "web2app",
@@ -44,5 +44,6 @@
       "url": "https://github.com/html5crew/web2app/blob/master/LICENSE"
     }
   ],
+  "license": "MIT",
   "copyright": "HTML5 Tech. Team in Daum Communications Corp."
 }

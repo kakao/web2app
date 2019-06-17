@@ -19,40 +19,43 @@ module.exports = function(grunt) {
                 src : [
                     'node_modules/ua_parser/src/js/ua_parser.js',
                     '<%= meta.banner %>',
-                    'lib/*.js'
+                    'lib/web2app.js',
+                    'lib/jsversion.js'
                 ],
                 dest : 'dist/<%= pkg.name %>-standalone-<%= pkg.version %>.js'
             },
             dist : {
                 src : [
                     '<%= meta.banner %>',
-                    'lib/*.js'
+                    'lib/web2app.js',
+                    'lib/jsversion.js'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.js'
             }
         },
-        jsversion : {
-            standalone : {
-                namespace : 'daumtools',
-                src : '<%= concat.standalone.dest %>',
-                dest : '<%= concat.standalone.dest %>'
-            },
-            dist : {
-                namespace : 'daumtools',
-                src : '<%= concat.dist.dest %>',
-                dest : '<%= concat.dist.dest %>'
+        preprocess : {
+          options: {
+            context : {
+              VERSION: '<%= pkg.version %>'
             }
+          },
+          multifile : {
+            files : {
+              '<%= concat.standalone.dest %>' : '<%= concat.standalone.dest %>',
+              '<%= concat.dist.dest %>'   : '<%= concat.dist.dest %>'
+            }
+          },
         },
         uglify : {
             standalone : {
                 src : [
-                    '<%= jsversion.standalone.dest %>'
+                    '<%= concat.standalone.dest %>'
                 ],
                 dest : 'dist/<%= pkg.name %>-standalone-<%= pkg.version %>.min.js'
             },
             dist : {
                 src : [
-                    '<%= jsversion.dist.dest %>'
+                    '<%= concat.dist.dest %>'
                 ],
                 dest : 'dist/<%= pkg.name %>-<%= pkg.version %>.min.js'
             }
@@ -83,10 +86,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-jsversion');
-    grunt.loadNpmTasks('grunt-remotefile');
+    grunt.loadNpmTasks('grunt-preprocess');
 
     // Default task.
     grunt.registerTask('test', ['jshint', 'concat', 'jasmine']);
-    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'jasmine', 'jsversion', 'uglify']);
+    grunt.registerTask('build', ['clean', 'jshint', 'concat', 'jasmine', 'preprocess', 'uglify']);
 };

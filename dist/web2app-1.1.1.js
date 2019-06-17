@@ -171,12 +171,11 @@
 })());
 
 (function (exports) {
-    "use strict";
+  "use strict";
 
-    /* package version info */
-    exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
-    if(typeof exports.daumtools.web2app !== "undefined") {
-        exports.daumtools.web2app.version = "1.1.0";
-    }
+  /* package version info */
+  exports.daumtools = (typeof exports.daumtools === "undefined") ? {} : exports.daumtools;
+  if(typeof exports.daumtools.web2app !== "undefined") {
+    exports.daumtools.web2app.version = '1.1.1';
+  }
 }(window));
-

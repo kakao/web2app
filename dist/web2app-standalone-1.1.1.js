@@ -71,7 +71,8 @@
         return false;
     }
     function isTablet (ua) {
-        if (ua.match(/ipad/) || (ua.match(/android/) && !ua.match(/mobi|mini|fennec/))) {
+        if (ua.match(/ipad/) || (ua.match(/android/) && !ua.match(/mobi|mini|fennec/)) || 
+        (ua.match(/macintosh/) && typeof window !== 'undefined' && window.navigator && window.navigator.maxTouchPoints > 1)) {
             return true;
         }
         return false;
@@ -106,6 +107,10 @@
             match[1] = "ios";
         } else if (match[1] === "windows" && match[2] === "98") {
             match[2] = "0.98.0";
+        }
+
+        if (match[1] === "mac" && (typeof window !== 'undefined' && window.navigator && window.navigator.maxTouchPoints > 1)) {
+            match[1] = "ios";
         }
         if (match[1] === 'cros') {
             match[1] = "chrome";
